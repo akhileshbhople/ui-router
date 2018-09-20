@@ -8,9 +8,7 @@ before_install:
 script:
 - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
 - tsc &&
-  yarn test &&
-  yarn docs &&
-  yarn test:downstream
+  yarn docs
 env:
   matrix:
   - CORE_BRANCH=
