@@ -6,19 +6,18 @@ before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.5.1
 matrix:
   include:
+  - os: linux-ppc64le
+    script:
+    - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
+    - tsc &&
+      yarn docs
   - os: linux
-    env:
     script:
     - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
     - tsc &&
       yarn test &&
       yarn docs &&
       yarn test:downstream
-  - os: linux-ppc64le
-    script:
-    - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
-    - tsc &&
-      yarn docs
 
 env:
   matrix:
