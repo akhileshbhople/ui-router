@@ -19,7 +19,6 @@ matrix:
     - tsc &&
       yarn docs
 env:
-  matrix:
   - CORE_BRANCH=
   - CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
 notifications:
