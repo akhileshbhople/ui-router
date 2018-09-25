@@ -7,11 +7,27 @@ before_install:
 matrix:
   include:
   - os: linux-ppc64le
+    env: CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
+    script:
+    - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
+    - tsc &&
+      yarn docs
+  - os: linux-ppc64le
+    env: CORE_BRANCH=
     script:
     - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
     - tsc &&
       yarn docs
   - os: linux
+    env: CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
+    script:
+    - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
+    - tsc &&
+      yarn test &&
+      yarn docs &&
+      yarn test:downstream
+  - os: linux
+    env: CORE_BRANCH=
     script:
     - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
     - tsc &&
@@ -19,10 +35,10 @@ matrix:
       yarn docs &&
       yarn test:downstream
 
-env:
-  matrix:
-  - CORE_BRANCH=
-  - CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
+#env:
+#  matrix:
+#  - CORE_BRANCH=
+#  - CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
 
 notifications:
   slack:
