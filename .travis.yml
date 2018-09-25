@@ -19,8 +19,10 @@ matrix:
     - tsc &&
       yarn docs
 env:
-  - CORE_BRANCH=
-  - CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
+  matrix:
+    include:
+    - CORE_BRANCH=
+    - CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
 notifications:
   slack:
     on_success: never
