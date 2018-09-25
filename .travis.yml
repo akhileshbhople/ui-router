@@ -18,11 +18,10 @@ matrix:
     - if [ "x${CORE_BRANCH}x" != "xx" ]; then npx publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
     - tsc &&
       yarn docs
-env:
-  matrix:
-    include:
-    - CORE_BRANCH=
-    - CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
+matrix:
+  env:
+  - CORE_BRANCH=
+  - CORE_BRANCH=master UPSTREAM_PKGS=@uirouter/core
 notifications:
   slack:
     on_success: never
